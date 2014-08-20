@@ -38,7 +38,7 @@ namespace kmlservice.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
         }
-        public HttpResponseMessage Get(string polygon)        
+        public HttpResponseMessage Get(string polygon, string propertyType = null)        
         {
             try
             {
@@ -67,7 +67,7 @@ where @g.STContains(p.location)=1
                     var g = DbGeography.FromText(polygon);
 
                     var result = from i in db.Locations.AsNoTracking() 
-                                 where g.Intersects(i.location1)
+                                 where g.Intersects(i.location1) && (propertyType == null || i.propertyType == propertyType)
                                  select new Result
                                  {
                                      description = i.description,
@@ -75,7 +75,7 @@ where @g.STContains(p.location)=1
                                      propertyId = i.propertyId
                                  };
                     //var result = db.Database.SqlQuery<Result>(query, 0).ToList();
-                    foreach (var item in result.Take(200))
+                    foreach (var item in result)
                     {
                         XmlElement placeNode = xDoc.CreateElement("Placemark");
                         docNode.AppendChild(placeNode);
