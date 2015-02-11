@@ -167,6 +167,8 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\ResIncomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,6 +192,30 @@
     </Compile>
     <Compile Include="Location_partial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResIncome.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResIncome.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResIncome.cs">
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResIncome.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResIncome.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ResIncome1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwResIncomeSummary.cs">
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -278,6 +304,23 @@
       <LastGenOutput>location1.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\kmlservice.pubxml" />
+    <EntityDeploy Include="ResIncome.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ResIncome.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ResIncome.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ResIncome.edmx</DependentUpon>
+      <LastGenOutput>ResIncome.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ResIncome.edmx.diagram">
+      <DependentUpon>ResIncome.edmx</DependentUpon>
+    </Content>
+    <Content Include="ResIncome.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ResIncome.edmx</DependentUpon>
+      <LastGenOutput>ResIncome1.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
