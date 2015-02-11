@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{C36D7C3A-4ECE-4352-A285-6592BBD711CF}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configura
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kmlservice", "kmlservice\kmlservice.csproj", "{ABE3CD5D-199A-4522-851C-5CDD2A4900D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loader", "loader\loader.csproj", "{F9B826D7-87CE-4106-A19A-7E8787515305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{ABE3CD5D-199A-4522-851C-5CDD2A4900D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABE3CD5D-199A-4522-851C-5CDD2A4900D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABE3CD5D-199A-4522-851C-5CDD2A4900D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9B826D7-87CE-4106-A19A-7E8787515305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9B826D7-87CE-4106-A19A-7E8787515305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9B826D7-87CE-4106-A19A-7E8787515305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9B826D7-87CE-4106-A19A-7E8787515305}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
