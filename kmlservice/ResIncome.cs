@@ -270,7 +270,7 @@ namespace kmlservice
         public Nullable<double> Type5ProFormaRent { get; set; }
         public Nullable<double> Type5TotalRent { get; set; }
         public Nullable<double> Latitude { get; set; }
-        public Nullable<double> longitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinate { get; set; }
     }
 }

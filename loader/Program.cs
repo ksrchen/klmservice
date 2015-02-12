@@ -23,6 +23,20 @@ namespace loader
             return client;
         }
 
+        private static double? convert2Double(string val)
+        {
+            double? dValue = null;
+            double temp = 0;
+            if (!string.IsNullOrWhiteSpace(val))
+            {
+                if (double.TryParse(val, out temp))
+                {
+                    dValue = temp;
+                }
+            }
+            return dValue;
+        }
+
         static void Main(string[] args)
         {
 
@@ -58,6 +72,42 @@ namespace loader
                     resIncome.PostalCode = data[Array.IndexOf(columnHeader, "PostalCode")];
                     resIncome.PostalCodePlus4 = data[Array.IndexOf(columnHeader, "PostalCodePlus4")];
 
+
+                    resIncome.Acres = convert2Double(data[Array.IndexOf(columnHeader, "Acres")]);
+                    resIncome.Floor = data[Array.IndexOf(columnHeader, "Floor")];
+
+                    resIncome.GrossMultiplier = convert2Double(data[Array.IndexOf(columnHeader, "GrossMultiplier")]);
+                    resIncome.GrossOperatingIncome = convert2Double(data[Array.IndexOf(columnHeader, "GrossOperatingIncome")]);
+                    resIncome.ListPrice = convert2Double(data[Array.IndexOf(columnHeader, "ListPrice")]);
+                    resIncome.LotSquareFootage = convert2Double(data[Array.IndexOf(columnHeader, "LotSquareFootage")]);
+                    resIncome.MonthlyGrossIncome = convert2Double(data[Array.IndexOf(columnHeader, "MonthlyGrossIncome")]);
+
+                    resIncome.NetOperatingIncome = convert2Double(data[Array.IndexOf(columnHeader, "NetOperatingIncome")]);
+                    resIncome.NumberElectricMeters = convert2Double(data[Array.IndexOf(columnHeader, "NumberElectricMeters")]);
+                    resIncome.NumberGarageSpaces = convert2Double(data[Array.IndexOf(columnHeader, "NumberGarageSpaces")]);
+                    resIncome.NumberGasMeters = convert2Double(data[Array.IndexOf(columnHeader, "NumberGasMeters")]);
+                    resIncome.NumberUnits = convert2Double(data[Array.IndexOf(columnHeader, "NumberUnits")]);
+
+                    resIncome.NumberWaterMeters = convert2Double(data[Array.IndexOf(columnHeader, "NumberWaterMeters")]);
+                    resIncome.OperatingExpense = convert2Double(data[Array.IndexOf(columnHeader, "OperatingExpense")]);
+
+                    resIncome.Parking = data[Array.IndexOf(columnHeader, "Parking")];
+                    resIncome.ParkingSpacesTotal = convert2Double(data[Array.IndexOf(columnHeader, "ParkingSpacesTotal")]);
+
+                    resIncome.Pool = data[Array.IndexOf(columnHeader, "Pool")];
+                    resIncome.PreviousPrice = convert2Double(data[Array.IndexOf(columnHeader, "PreviousPrice")]);
+                    resIncome.PricePerUnit = convert2Double(data[Array.IndexOf(columnHeader, "PricePerUnit")]);
+                    resIncome.PropertyDescription = data[Array.IndexOf(columnHeader, "PropertyDescription")];
+
+
+                    resIncome.SA_FirstName = data[Array.IndexOf(columnHeader, "SA_FirstName")];
+                    resIncome.SA_LastName = data[Array.IndexOf(columnHeader, "SA_LastName")];
+                    resIncome.SA_PublicID = data[Array.IndexOf(columnHeader, "SA_PublicID")];
+                    resIncome.SA_StateLicenseNumber =convert2Double( data[Array.IndexOf(columnHeader, "SA_StateLicenseNumber")]);
+                    resIncome.SellingPrice = convert2Double(data[Array.IndexOf(columnHeader, "SellingPrice")]);
+                    resIncome.TotalExpenses = convert2Double(data[Array.IndexOf(columnHeader, "TotalExpenses")]);
+
+
                     string address = string.Format("{0} {1} {2} {3}, {4}",
                         resIncome.StreetNumber,
                         resIncome.StreetName,
@@ -72,7 +122,7 @@ namespace loader
                     if (result.status == "OK")
                     {
                         resIncome.Latitude = result.results[0].geometry.location.lat;
-                        resIncome.longitude = result.results[0].geometry.location.lng;
+                        resIncome.Longitude = result.results[0].geometry.location.lng;
                         resIncomes.Add(resIncome);
                     }
                     else
@@ -80,7 +130,7 @@ namespace loader
                     }
 
 
-                    if (resIncomes.Count >= 1000)
+                    if (resIncomes.Count >= 100)
                     {
                         var klmServiceClient = GetClient(@"http://kmlservice.azurewebsites.net/");
 

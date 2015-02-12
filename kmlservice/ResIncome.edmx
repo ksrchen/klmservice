@@ -265,7 +265,7 @@
           <Property Name="Type5ProFormaRent" Type="float" />
           <Property Name="Type5TotalRent" Type="float" />
           <Property Name="Latitude" Type="float" />
-          <Property Name="longitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
           <Property Name="Coordinate" Type="geography" />
         </EntityType>
         <EntityType Name="User">
@@ -315,10 +315,21 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     <edmx:ConceptualModels>
       <Schema Namespace="ResIncomeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ResIncomeEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ResIncomes" EntityType="ResIncomeModel.ResIncome" />
           <EntitySet Name="Users" EntityType="ResIncomeModel.User" />
+          <EntitySet Name="ResIncomes" EntityType="ResIncomeModel.ResIncome" />
           <EntitySet Name="vwResIncomeSummaries" EntityType="ResIncomeModel.vwResIncomeSummary" />
         </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LastSignOn" Type="DateTimeOffset" Precision="7" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="ResIncome">
           <Key>
             <PropertyRef Name="MLnumber" />
@@ -579,19 +590,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Type5ProFormaRent" Type="Double" />
           <Property Name="Type5TotalRent" Type="Double" />
           <Property Name="Latitude" Type="Double" />
-          <Property Name="longitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinate" Type="Geography" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="LastSignOn" Type="DateTimeOffset" Precision="7" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="vwResIncomeSummary">
           <Key>
@@ -612,11 +612,23 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ResIncomeModelStoreContainer" CdmEntityContainer="ResIncomeEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ResIncomeModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="LastSignOn" ColumnName="LastSignOn" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ResIncomes">
             <EntityTypeMapping TypeName="ResIncomeModel.ResIncome">
               <MappingFragment StoreEntitySet="ResIncome">
                 <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
-                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Type5TotalRent" ColumnName="Type5TotalRent" />
                 <ScalarProperty Name="Type5ProFormaRent" ColumnName="Type5ProFormaRent" />
@@ -873,18 +885,6 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="AdNumber" ColumnName="AdNumber" />
                 <ScalarProperty Name="Acres" ColumnName="Acres" />
                 <ScalarProperty Name="AccessibilityFeatures" ColumnName="AccessibilityFeatures" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ResIncomeModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="LastSignOn" ColumnName="LastSignOn" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

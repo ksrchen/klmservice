@@ -20,7 +20,7 @@ namespace kmlservice.Controllers
                 {
                     foreach (var item in dataSet)
                     {
-                        item.Coordinate = DbGeography.PointFromText(string.Format("POINT({0} {1})", item.longitude, item.Latitude), 4326);
+                        item.Coordinate = DbGeography.PointFromText(string.Format("POINT({0} {1})", item.Longitude, item.Latitude), 4326);
                         db.ResIncomes.Add(item);
                     }
                     db.SaveChanges();

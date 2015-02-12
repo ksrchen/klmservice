@@ -25,8 +25,8 @@ namespace kmlservice
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ResIncome> ResIncomes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ResIncome> ResIncomes { get; set; }
         public virtual DbSet<vwResIncomeSummary> vwResIncomeSummaries { get; set; }
     }
 }
