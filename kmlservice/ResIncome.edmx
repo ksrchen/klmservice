@@ -287,7 +287,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           </Key>
           <Property Name="MLnumber" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="StreetName" Type="nvarchar" MaxLength="255" />
-          <Property Name="StreetNumber" Type="float" />
+          <Property Name="StreetNumber" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="255" />
           <Property Name="PropertyDescription" Type="nvarchar(max)" />
           <Property Name="Coordinate" Type="geography" />
@@ -599,7 +599,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           </Key>
           <Property Name="MLnumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="StreetName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="StreetNumber" Type="Double" />
+          <Property Name="StreetNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="PropertyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Coordinate" Type="Geography" />

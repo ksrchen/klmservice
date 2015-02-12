@@ -7,7 +7,7 @@
       <Diagram DiagramId="023bc09532f844a59fd43bfddc670937" Name="Diagram1" ZoomLevel="14">
         <EntityTypeShape EntityType="ResIncomeModel.User" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ResIncomeModel.ResIncome" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ResIncomeModel.vwResIncomeSummary" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ResIncomeModel.vwResIncomeSummary" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

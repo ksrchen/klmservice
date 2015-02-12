@@ -65,8 +65,8 @@ namespace kmlservice.Controllers
                     var g = DbGeography.FromText(polygon);
 
                     var result = from i in db.vwResIncomeSummaries.AsNoTracking()
-                                 where g.Intersects(i.Coordinate) 
-                                 select new vwResIncomeSummary
+                                 where g.Intersects(i.Coordinate)
+                                 select new ResIncomeSummary
                                  {
                                      MLnumber = i.MLnumber,
                                      City = i.City,
@@ -76,7 +76,7 @@ namespace kmlservice.Controllers
                                      StreetName = i.StreetName,
                                      StreetNumber = i.StreetNumber,
                                  };
-                    return Request.CreateResponse<List<vwResIncomeSummary>>(HttpStatusCode.OK, result.ToList()); 
+                    return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, result.ToList()); 
                 }
             }
 
@@ -86,6 +86,17 @@ namespace kmlservice.Controllers
             }
 
         }
+    }
+
+    public class ResIncomeSummary
+    {
+        public string MLnumber { get; set; }
+        public string StreetName { get; set; }
+        public string StreetNumber { get; set; }
+        public string City { get; set; }
+        public string PropertyDescription { get; set; }
+        public Nullable<double> longitude { get; set; }
+        public Nullable<double> Latitude { get; set; }
     }
 }
    

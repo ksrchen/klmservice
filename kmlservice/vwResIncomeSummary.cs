@@ -16,7 +16,7 @@ namespace kmlservice
     {
         public string MLnumber { get; set; }
         public string StreetName { get; set; }
-        public Nullable<double> StreetNumber { get; set; }
+        public string StreetNumber { get; set; }
         public string City { get; set; }
         public string PropertyDescription { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinate { get; set; }
