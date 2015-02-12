@@ -17,7 +17,7 @@ namespace kmlservice
         public string AccessibilityFeatures { get; set; }
         public Nullable<double> Acres { get; set; }
         public string AdNumber { get; set; }
-        public Nullable<double> APN { get; set; }
+        public string APN { get; set; }
         public string Appliances { get; set; }
         public Nullable<double> AppliancesYN { get; set; }
         public Nullable<double> Area { get; set; }
@@ -140,8 +140,8 @@ namespace kmlservice
         public Nullable<double> Piccount { get; set; }
         public string Pool { get; set; }
         public Nullable<double> PoolYN { get; set; }
-        public Nullable<double> PostalCode { get; set; }
-        public Nullable<double> PostalCodePlus4 { get; set; }
+        public string PostalCode { get; set; }
+        public string PostalCodePlus4 { get; set; }
         public Nullable<double> PreviousPrice { get; set; }
         public string PreviousStatus { get; set; }
         public Nullable<double> PricePerSqft { get; set; }
@@ -174,7 +174,7 @@ namespace kmlservice
         public string StreetDirection { get; set; }
         public string StreetDirectionSuffix { get; set; }
         public string StreetName { get; set; }
-        public Nullable<double> StreetNumber { get; set; }
+        public string StreetNumber { get; set; }
         public string StreetNumberModifier { get; set; }
         public string StreetSuffix { get; set; }
         public string StreetSuffixModifier { get; set; }
