@@ -18,7 +18,7 @@ namespace kmlservice.Controllers
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK, user);
                 }
             }
             catch (DbEntityValidationException e)
@@ -43,7 +43,7 @@ namespace kmlservice.Controllers
                     {
                         item.LastSignOn = DateTimeOffset.Now;
                         db.SaveChanges();
-                        return Request.CreateResponse(HttpStatusCode.OK);
+                        return Request.CreateResponse(HttpStatusCode.OK, item);
                     }
                     else
                     {
