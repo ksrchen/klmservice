@@ -16,9 +16,16 @@ namespace kmlservice.Controllers
             {
                 using (var db = new ResIncomeEntities())
                 {
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, user);
+                    if (db.Users.Any(p => p.UserID == user.UserID))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.BadRequest);
+                    }
+                    else
+                    {
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, user);
+                    }
                 }
             }
             catch (DbEntityValidationException e)
