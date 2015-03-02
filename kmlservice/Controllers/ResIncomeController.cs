@@ -54,15 +54,49 @@ namespace kmlservice.Controllers
             }
         }
 
-        [HttpGet]
-        public HttpResponseMessage Search(string polygon, string filters = null)
+        //[HttpGet]
+        //public HttpResponseMessage Search(string polygon, string filters = null)
+        //{
+        //    try
+        //    {
+        //        using (var db = new ResIncomeEntities())
+        //        {
+        //            // db.Database.CommandTimeout = 5 * 60;
+        //            var g = DbGeography.FromText(polygon);
+
+        //            var result = from i in db.vwResIncomeSummaries.AsNoTracking()
+        //                         where g.Intersects(i.Coordinate)
+        //                         select new ResIncomeSummary
+        //                         {
+        //                             MLnumber = i.MLnumber,
+        //                             City = i.City,
+        //                             Latitude = i.Latitude,
+        //                             longitude = i.longitude,
+        //                             PropertyDescription = i.PropertyDescription,
+        //                             StreetName = i.StreetName,
+        //                             StreetNumber = i.StreetNumber,
+        //                         };
+        //            return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, result.ToList()); 
+        //        }
+        //    }
+
+        //    catch (Exception exp)
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
+        //    }
+
+        //}
+   
+
+     [HttpPut]
+        public HttpResponseMessage Search(SearchRequest request)
         {
             try
             {
                 using (var db = new ResIncomeEntities())
                 {
                     // db.Database.CommandTimeout = 5 * 60;
-                    var g = DbGeography.FromText(polygon);
+                    var g = DbGeography.FromText(request.Polygon);
 
                     var result = from i in db.vwResIncomeSummaries.AsNoTracking()
                                  where g.Intersects(i.Coordinate)
@@ -88,6 +122,7 @@ namespace kmlservice.Controllers
         }
     }
 
+
     public class ResIncomeSummary
     {
         public string MLnumber { get; set; }
@@ -97,6 +132,12 @@ namespace kmlservice.Controllers
         public string PropertyDescription { get; set; }
         public Nullable<double> longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
+    }
+
+    public class SearchRequest
+    {
+        public string Polygon { get; set; }
+        public string Filters { get; set; }
     }
 }
    
