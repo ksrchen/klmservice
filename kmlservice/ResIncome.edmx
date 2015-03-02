@@ -293,6 +293,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Coordinate" Type="geography" />
           <Property Name="longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
+          <Property Name="LotSquareFootage" Type="float" />
         </EntityType>
         <EntityContainer Name="ResIncomeModelStoreContainer">
           <EntitySet Name="ResIncome" EntityType="Self.ResIncome" Schema="dbo" store:Type="Tables" />
@@ -306,7 +307,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     [vwResIncomeSummary].[PropertyDescription] AS [PropertyDescription], 
     [vwResIncomeSummary].[Coordinate] AS [Coordinate], 
     [vwResIncomeSummary].[longitude] AS [longitude], 
-    [vwResIncomeSummary].[Latitude] AS [Latitude]
+    [vwResIncomeSummary].[Latitude] AS [Latitude], 
+    [vwResIncomeSummary].[LotSquareFootage] AS [LotSquareFootage]
     FROM [dbo].[vwResIncomeSummary] AS [vwResIncomeSummary]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -605,6 +607,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Coordinate" Type="Geography" />
           <Property Name="longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
+          <Property Name="LotSquareFootage" Type="Double" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -891,6 +894,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySetMapping Name="vwResIncomeSummaries">
             <EntityTypeMapping TypeName="ResIncomeModel.vwResIncomeSummary">
               <MappingFragment StoreEntitySet="vwResIncomeSummary">
+                <ScalarProperty Name="LotSquareFootage" ColumnName="LotSquareFootage" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
                 <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />

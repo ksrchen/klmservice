@@ -22,5 +22,6 @@ namespace kmlservice
         public System.Data.Entity.Spatial.DbGeography Coordinate { get; set; }
         public Nullable<double> longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
+        public Nullable<double> LotSquareFootage { get; set; }
     }
 }

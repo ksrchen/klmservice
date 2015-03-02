@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace kmlservice.Controllers
@@ -109,13 +111,20 @@ namespace kmlservice.Controllers
                                      PropertyDescription = i.PropertyDescription,
                                      StreetName = i.StreetName,
                                      StreetNumber = i.StreetNumber,
+                                     LotSquareFootage = i.LotSquareFootage
                                  };
+
+                    if (!string.IsNullOrWhiteSpace(request.Filters))
+                    {
+                        result = result.Where(request.Filters, null);
+                    }
                     return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, result.ToList()); 
                 }
             }
 
             catch (Exception exp)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(exp));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
 
@@ -132,6 +141,7 @@ namespace kmlservice.Controllers
         public string PropertyDescription { get; set; }
         public Nullable<double> longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
+        public double? LotSquareFootage { get; set; }
     }
 
     public class SearchRequest
