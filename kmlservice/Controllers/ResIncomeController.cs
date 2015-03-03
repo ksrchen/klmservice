@@ -100,25 +100,28 @@ namespace kmlservice.Controllers
                     // db.Database.CommandTimeout = 5 * 60;
                     var g = DbGeography.FromText(request.Polygon);
 
-                    var result = from i in db.vwResIncomeSummaries.AsNoTracking()
-                                 where g.Intersects(i.Coordinate)
-                                 select new ResIncomeSummary
-                                 {
-                                     MLnumber = i.MLnumber,
-                                     City = i.City,
-                                     Latitude = i.Latitude,
-                                     longitude = i.longitude,
-                                     PropertyDescription = i.PropertyDescription,
-                                     StreetName = i.StreetName,
-                                     StreetNumber = i.StreetNumber,
-                                     LotSquareFootage = i.LotSquareFootage
-                                 };
-
+                    var result = from i in db.ResIncomes.AsNoTracking()
+                                 where g.Intersects(i.Coordinate) 
+                                 select i;
+                                
                     if (!string.IsNullOrWhiteSpace(request.Filters))
                     {
                         result = result.Where(request.Filters, null);
                     }
-                    return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, result.ToList()); 
+                    var items = from i in result
+                             select new ResIncomeSummary
+                             {
+                                 MLnumber = i.MLnumber,
+                                 City = i.City,
+                                 Latitude = i.Latitude,
+                                 longitude = i.Longitude,
+                                 PropertyDescription = i.PropertyDescription,
+                                 StreetName = i.StreetName,
+                                 StreetNumber = i.StreetNumber,
+                                 LotSquareFootage = i.LotSquareFootage
+                             };
+
+                    return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, items.ToList()); 
                 }
             }
 
