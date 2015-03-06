@@ -78,7 +78,7 @@ namespace kmlservice.Controllers
                         db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
                         db.SaveChanges();
                     }
-                    return Request.CreateResponse(HttpStatusCode.OK, "ok");
+                    return Request.CreateResponse(HttpStatusCode.OK, new {@status = "ok" });
                 }
             }
             catch (Exception exp)
