@@ -12,20 +12,13 @@ namespace kmlservice
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Favoriate
     {
-        public User()
-        {
-            this.Favoriates = new HashSet<Favoriate>();
-        }
-    
+        public int FavoriateID { get; set; }
         public string UserID { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Nullable<System.DateTimeOffset> LastSignOn { get; set; }
-        public bool Active { get; set; }
+        public string MLNumber { get; set; }
     
-        public virtual ICollection<Favoriate> Favoriates { get; set; }
+        public virtual ResIncome ResIncome { get; set; }
+        public virtual User User { get; set; }
     }
 }

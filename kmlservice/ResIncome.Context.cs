@@ -28,5 +28,6 @@ namespace kmlservice
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ResIncome> ResIncomes { get; set; }
         public virtual DbSet<vwResIncomeSummary> vwResIncomeSummaries { get; set; }
+        public virtual DbSet<Favoriate> Favoriates { get; set; }
     }
 }

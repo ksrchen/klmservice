@@ -46,8 +46,22 @@ namespace kmlservice.Controllers
             {
                 using (var db = new ResIncomeEntities())
                 {
-                    var item = db.ResIncomes.FirstOrDefault(p => p.MLnumber == id);
-                    return Request.CreateResponse<ResIncome>(HttpStatusCode.OK, item);
+                    var query = from i in db.ResIncomes where i.MLnumber == id 
+                                select new ResIncomeSummary
+                                {
+                                 MLnumber = i.MLnumber,
+                                 City = i.City,
+                                 Latitude = i.Latitude,
+                                 longitude = i.Longitude,
+                                 PropertyDescription = i.PropertyDescription,
+                                 StreetName = i.StreetName,
+                                 StreetNumber = i.StreetNumber,
+                                 LotSquareFootage = i.LotSquareFootage,
+                                 State = i.State,
+                                 PostalCode = i.PostalCode
+                             };
+
+                    return Request.CreateResponse<ResIncomeSummary>(HttpStatusCode.OK, query.FirstOrDefault());
                 }
             }
             catch (Exception exp)
@@ -118,7 +132,9 @@ namespace kmlservice.Controllers
                                  PropertyDescription = i.PropertyDescription,
                                  StreetName = i.StreetName,
                                  StreetNumber = i.StreetNumber,
-                                 LotSquareFootage = i.LotSquareFootage
+                                 LotSquareFootage = i.LotSquareFootage,
+                                 State = i.State,
+                                 PostalCode = i.PostalCode
                              };
 
                     return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, items.ToList()); 
@@ -145,6 +161,8 @@ namespace kmlservice.Controllers
         public Nullable<double> longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
         public double? LotSquareFootage { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
     }
 
     public class SearchRequest

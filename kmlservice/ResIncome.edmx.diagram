@@ -8,6 +8,9 @@
         <EntityTypeShape EntityType="ResIncomeModel.User" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ResIncomeModel.ResIncome" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="ResIncomeModel.vwResIncomeSummary" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ResIncomeModel.Favoriate" Width="1.5" PointX="5" PointY="23.125" />
+        <AssociationConnector Association="ResIncomeModel.FK_Favoriate_ResIncome" />
+        <AssociationConnector Association="ResIncomeModel.FK_Favoriate_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
