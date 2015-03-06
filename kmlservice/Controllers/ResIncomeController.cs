@@ -31,10 +31,12 @@ namespace kmlservice.Controllers
             }
             catch (DbEntityValidationException e)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(e));
                 return Request.CreateResponse(HttpStatusCode.OK, e.EntityValidationErrors);
             }
             catch (Exception exp)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(exp));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
         }
@@ -66,42 +68,12 @@ namespace kmlservice.Controllers
             }
             catch (Exception exp)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(exp));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
         }
 
-        //[HttpGet]
-        //public HttpResponseMessage Search(string polygon, string filters = null)
-        //{
-        //    try
-        //    {
-        //        using (var db = new ResIncomeEntities())
-        //        {
-        //            // db.Database.CommandTimeout = 5 * 60;
-        //            var g = DbGeography.FromText(polygon);
-
-        //            var result = from i in db.vwResIncomeSummaries.AsNoTracking()
-        //                         where g.Intersects(i.Coordinate)
-        //                         select new ResIncomeSummary
-        //                         {
-        //                             MLnumber = i.MLnumber,
-        //                             City = i.City,
-        //                             Latitude = i.Latitude,
-        //                             longitude = i.longitude,
-        //                             PropertyDescription = i.PropertyDescription,
-        //                             StreetName = i.StreetName,
-        //                             StreetNumber = i.StreetNumber,
-        //                         };
-        //            return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, result.ToList()); 
-        //        }
-        //    }
-
-        //    catch (Exception exp)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
-        //    }
-
-        //}
+        
    
 
      [HttpPut]

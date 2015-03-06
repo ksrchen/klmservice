@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="023bc09532f844a59fd43bfddc670937" Name="Diagram1" ZoomLevel="14">
+      <Diagram DiagramId="023bc09532f844a59fd43bfddc670937" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="ResIncomeModel.User" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ResIncomeModel.ResIncome" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="ResIncomeModel.vwResIncomeSummary" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="ResIncomeModel.Favoriate" Width="1.5" PointX="5" PointY="23.125" />
         <AssociationConnector Association="ResIncomeModel.FK_Favoriate_ResIncome" />
         <AssociationConnector Association="ResIncomeModel.FK_Favoriate_User" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

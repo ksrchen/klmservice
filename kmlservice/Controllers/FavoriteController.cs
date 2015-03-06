@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace kmlservice.Controllers
@@ -11,14 +12,14 @@ namespace kmlservice.Controllers
     {
 
         [HttpGet]
-        public HttpResponseMessage Get(string id)
+        public HttpResponseMessage Get(string userId)
         {
             try
             {
                 using (var db = new ResIncomeEntities())
                 {
                     var query = from f in db.Favoriates
-                                where f.UserID == id
+                                where f.UserID == userId
                                 select new ResIncomeSummary
                             {
                                 MLnumber = f.ResIncome.MLnumber,
@@ -38,6 +39,7 @@ namespace kmlservice.Controllers
             }
             catch (Exception exp)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(exp));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
         }
@@ -49,13 +51,17 @@ namespace kmlservice.Controllers
             {
                 using (var db = new ResIncomeEntities())
                 {
-                    db.Favoriates.Add(favoriate);
-                    db.SaveChanges();
+                    if (!db.Favoriates.Any(p => p.UserID == favoriate.UserID && p.MLNumber == favoriate.MLNumber))
+                    {
+                        db.Favoriates.Add(favoriate);
+                        db.SaveChanges();
+                    }
                     return Request.CreateResponse(HttpStatusCode.OK, favoriate);
                 }
             }
             catch (Exception exp)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(exp));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
         }
@@ -77,6 +83,7 @@ namespace kmlservice.Controllers
             }
             catch (Exception exp)
             {
+                Elmah.ErrorLog.GetDefault(HttpContext.Current).Log(new Elmah.Error(exp));
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exp);
             }
         }

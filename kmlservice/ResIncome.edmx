@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="FavoriateID" />
           </Key>
-          <Property Name="FavoriateID" Type="int" Nullable="false" />
+          <Property Name="FavoriateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="MLNumber" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
@@ -370,7 +370,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
             <End Role="User" EntitySet="Users" />
             <End Role="Favoriate" EntitySet="Favoriates" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -665,7 +665,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Key>
             <PropertyRef Name="FavoriateID" />
           </Key>
-          <Property Name="FavoriateID" Type="Int32" Nullable="false" />
+          <Property Name="FavoriateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="MLNumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ResIncome" Relationship="ResIncomeModel.FK_Favoriate_ResIncome" FromRole="Favoriate" ToRole="ResIncome" />
