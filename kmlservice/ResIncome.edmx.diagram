@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="ResIncomeModel.Favoriate" Width="1.5" PointX="5" PointY="23.125" />
         <AssociationConnector Association="ResIncomeModel.FK_Favoriate_ResIncome" />
         <AssociationConnector Association="ResIncomeModel.FK_Favoriate_User" />
+        <EntityTypeShape EntityType="ResIncomeModel.attachment" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

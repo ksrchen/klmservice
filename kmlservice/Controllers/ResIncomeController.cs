@@ -94,6 +94,8 @@ namespace kmlservice.Controllers
                     {
                         result = result.Where(request.Filters, null);
                     }
+                    result = result.Take(100);
+
                     var items = from i in result
                              select new ResIncomeSummary
                              {

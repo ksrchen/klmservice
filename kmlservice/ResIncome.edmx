@@ -5,6 +5,28 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ResIncomeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attachments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Board" Type="varchar" MaxLength="50" />
+          <Property Name="ClassID" Type="varchar" MaxLength="50" />
+          <Property Name="ClassKey" Type="varchar" MaxLength="50" />
+          <Property Name="ClassSourceKey" Type="varchar" MaxLength="50" />
+          <Property Name="FileExtension" Type="varchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="varchar" MaxLength="50" />
+          <Property Name="MediaDescription" Type="varchar" MaxLength="50" />
+          <Property Name="MediaKey" Type="varchar" MaxLength="50" />
+          <Property Name="MediaOrder" Type="varchar" MaxLength="50" />
+          <Property Name="MediaType" Type="varchar" MaxLength="50" />
+          <Property Name="MediaURL" Type="varchar" MaxLength="500" />
+          <Property Name="MLS_ID" Type="varchar" MaxLength="50" />
+          <Property Name="OfficeCode" Type="varchar" MaxLength="50" />
+          <Property Name="SourceKey" Type="varchar" MaxLength="50" />
+          <Property Name="TimestampModified" Type="varchar" MaxLength="50" />
+          <Property Name="TimestampUploaded" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Favoriate">
           <Key>
             <PropertyRef Name="FavoriateID" />
@@ -294,6 +316,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
             <PropertyRef Name="MLnumber" />
           </Key>
           <Property Name="MLnumber" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ListingKey" Type="float" />
           <Property Name="StreetName" Type="nvarchar" MaxLength="255" />
           <Property Name="StreetNumber" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="255" />
@@ -302,6 +325,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
           <Property Name="LotSquareFootage" Type="float" />
+          <Property Name="MediaURL" Type="varchar" MaxLength="500" />
         </EntityType>
         <Association Name="FK_Favoriate_ResIncome">
           <End Role="ResIncome" Type="Self.ResIncome" Multiplicity="1" />
@@ -328,12 +352,14 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ResIncomeModelStoreContainer">
+          <EntitySet Name="attachments" EntityType="Self.attachments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favoriate" EntityType="Self.Favoriate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResIncome" EntityType="Self.ResIncome" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwResIncomeSummary" EntityType="Self.vwResIncomeSummary" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwResIncomeSummary].[MLnumber] AS [MLnumber], 
+    [vwResIncomeSummary].[ListingKey] AS [ListingKey], 
     [vwResIncomeSummary].[StreetName] AS [StreetName], 
     [vwResIncomeSummary].[StreetNumber] AS [StreetNumber], 
     [vwResIncomeSummary].[City] AS [City], 
@@ -341,7 +367,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     [vwResIncomeSummary].[Coordinate] AS [Coordinate], 
     [vwResIncomeSummary].[longitude] AS [longitude], 
     [vwResIncomeSummary].[Latitude] AS [Latitude], 
-    [vwResIncomeSummary].[LotSquareFootage] AS [LotSquareFootage]
+    [vwResIncomeSummary].[LotSquareFootage] AS [LotSquareFootage], 
+    [vwResIncomeSummary].[MediaURL] AS [MediaURL]
     FROM [dbo].[vwResIncomeSummary] AS [vwResIncomeSummary]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Favoriate_ResIncome" Association="Self.FK_Favoriate_ResIncome">
@@ -370,6 +397,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
             <End Role="User" EntitySet="Users" />
             <End Role="Favoriate" EntitySet="Favoriates" />
           </AssociationSet>
+          <EntitySet Name="attachments" EntityType="ResIncomeModel.attachment" />
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -660,6 +688,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
           <Property Name="LotSquareFootage" Type="Double" />
+          <Property Name="ListingKey" Type="Double" />
+          <Property Name="MediaURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Favoriate">
           <Key>
@@ -695,6 +725,28 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="attachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Board" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClassKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClassSourceKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileExtension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MLS_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SourceKey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimestampModified" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimestampUploaded" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -980,6 +1032,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySetMapping Name="vwResIncomeSummaries">
             <EntityTypeMapping TypeName="ResIncomeModel.vwResIncomeSummary">
               <MappingFragment StoreEntitySet="vwResIncomeSummary">
+                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
+                <ScalarProperty Name="ListingKey" ColumnName="ListingKey" />
                 <ScalarProperty Name="LotSquareFootage" ColumnName="LotSquareFootage" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="longitude" ColumnName="longitude" />
@@ -998,6 +1052,29 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="MLNumber" ColumnName="MLNumber" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FavoriateID" ColumnName="FavoriateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="attachments">
+            <EntityTypeMapping TypeName="ResIncomeModel.attachment">
+              <MappingFragment StoreEntitySet="attachments">
+                <ScalarProperty Name="TimestampUploaded" ColumnName="TimestampUploaded" />
+                <ScalarProperty Name="TimestampModified" ColumnName="TimestampModified" />
+                <ScalarProperty Name="SourceKey" ColumnName="SourceKey" />
+                <ScalarProperty Name="OfficeCode" ColumnName="OfficeCode" />
+                <ScalarProperty Name="MLS_ID" ColumnName="MLS_ID" />
+                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="MediaOrder" ColumnName="MediaOrder" />
+                <ScalarProperty Name="MediaKey" ColumnName="MediaKey" />
+                <ScalarProperty Name="MediaDescription" ColumnName="MediaDescription" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="ClassSourceKey" ColumnName="ClassSourceKey" />
+                <ScalarProperty Name="ClassKey" ColumnName="ClassKey" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="Board" ColumnName="Board" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

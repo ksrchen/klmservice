@@ -60,6 +60,71 @@ namespace loader
 
         static void Main(string[] args)
         {
+            loadAttachment();
+
+        }
+
+        static void loadAttachment()
+        {
+            StreamReader reader = new StreamReader(@".\attachments.txt");
+            string line = string.Empty;
+            int lineCount = 0;
+            string[] columnHeader = null;
+            List<attachment> items = new List<attachment>();
+            while (true)
+            {
+                line = reader.ReadLine();
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    break;
+                }
+                lineCount++;
+
+                if (lineCount == 1)
+                {
+                    columnHeader = line.Split(new char[] { '\t' });
+                }
+                else
+                {
+                    var data = line.Split(new char[] { '\t' });
+
+                    var item = new attachment();
+                    item.Board = data[Array.IndexOf(columnHeader, "Board")];
+                    item.ClassID = data[Array.IndexOf(columnHeader, "ClassID")];
+                    item.ClassKey = data[Array.IndexOf(columnHeader, "ClassKey")];
+                    item.ClassSourceKey = data[Array.IndexOf(columnHeader, "ClassSourceKey")];
+                    item.FileExtension = data[Array.IndexOf(columnHeader, "FileExtension")];
+                    item.IsDeleted = data[Array.IndexOf(columnHeader, "IsDeleted")];
+                  //  item.MediaDescription = data[Array.IndexOf(columnHeader, "MediaDescription")];
+                    item.MediaKey = data[Array.IndexOf(columnHeader, "MediaKey")];
+                    item.MediaURL = data[Array.IndexOf(columnHeader, "MediaURL")];
+                    item.MediaType = data[Array.IndexOf(columnHeader, "MediaType")];
+                    item.MLS_ID = data[Array.IndexOf(columnHeader, "MLS_ID")];
+                    item.OfficeCode = data[Array.IndexOf(columnHeader, "OfficeCode")];
+                    item.SourceKey = data[Array.IndexOf(columnHeader, "SourceKey")];
+                    item.TimestampModified = data[Array.IndexOf(columnHeader, "TimestampModified")];
+                    item.TimestampUploaded = data[Array.IndexOf(columnHeader, "TimestampUploaded")];
+
+                    items.Add(item);
+                }
+
+                if (items.Count >= 100)
+                {
+                    var klmServiceClient = GetClient(@"http://kmlservice.azurewebsites.net/");
+                    var status = klmServiceClient.PostAsJsonAsync<List<attachment>>(@"api/attachments/", items).Result.Content.ReadAsStringAsync().Result;
+                    items.Clear();
+                }
+            }
+            if (items.Count > 0)
+            {
+                var klmServiceClient = GetClient(@"http://kmlservice.azurewebsites.net/");
+                var status = klmServiceClient.PostAsJsonAsync<List<attachment>>(@"api/attachments/", items).Result.Content.ReadAsStringAsync().Result;
+                items.Clear();
+            }
+        }
+
+        static void loadProperty()
+        {
             var CityMap = LoadCityAbbreviation();
 
             StreamReader reader = new StreamReader(@".\listings.txt");
