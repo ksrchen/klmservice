@@ -105,7 +105,7 @@ namespace loader
         public string LastChangeType { get; set; }
         public string Laundry { get; set; }
         public Nullable<double> LaundryYN { get; set; }
-        public Nullable<double> ListingKey { get; set; }
+        public string ListingKey { get; set; }
         public Nullable<double> ListPrice { get; set; }
         public string ListPriceExcludes { get; set; }
         public string ListPriceIncludes { get; set; }

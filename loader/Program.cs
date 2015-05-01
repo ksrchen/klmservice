@@ -37,10 +37,33 @@ namespace loader
             return dValue;
         }
 
+        private static Dictionary<string, string> LoadCityAbbreviation()
+        {
+            var result = new Dictionary<string, string>();
+            StreamReader reader = new StreamReader(@".\CityAreaAbbList.txt");
+            string line = string.Empty;
+            while (true)
+            {
+                line = reader.ReadLine();
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    break;
+                }
+
+                var parts = line.Split(new char[] { ',' });
+
+                result[parts[1]] = parts[0];
+            }
+            return result;
+
+        }
+
         static void Main(string[] args)
         {
+            var CityMap = LoadCityAbbreviation();
 
-            StreamReader reader = new StreamReader(@".\resincome.txt");
+            StreamReader reader = new StreamReader(@".\listings.txt");
+            StreamWriter writer = new StreamWriter(@"failed.txt");
             string line = string.Empty;
             int lineCount = 0;
             string[] columnHeader = null;
@@ -63,6 +86,7 @@ namespace loader
                     var data = line.Split(new char[] { '\t' });
 
                     ResIncome resIncome = new ResIncome();
+                    resIncome.ListingKey =data[Array.IndexOf(columnHeader, "ListingKey")];
                     resIncome.MLnumber = data[Array.IndexOf(columnHeader, "MLnumber")];
                     resIncome.MLSID = data[Array.IndexOf(columnHeader, "MLSID")];
                     resIncome.StreetName = data[Array.IndexOf(columnHeader, "StreetName")];
@@ -111,33 +135,39 @@ namespace loader
                     string address = string.Format("{0} {1} {2} {3}, {4}",
                         resIncome.StreetNumber,
                         resIncome.StreetName,
-                        resIncome.City,
+                        CityMap.ContainsKey(resIncome.City)?CityMap[resIncome.City]:resIncome.City,
                         resIncome.State,
                         resIncome.PostalCode);
 
-                    var client = GetClient(@"http://maps.googleapis.com");
-                    string path = @"maps/api/geocode/json?sensor=true&address=" + HttpUtility.UrlEncode(address);
-                    var content = client.GetAsync(path).Result.Content;
-                    dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(content.ReadAsStringAsync().Result);
-                    if (result.status == "OK")
+                    int tries =0;
+                    bool resolved = false;
+                    while (tries++ < 3)
                     {
-                        resIncome.Latitude = result.results[0].geometry.location.lat;
-                        resIncome.Longitude = result.results[0].geometry.location.lng;
-                        resIncomes.Add(resIncome);
-                    }
-                    else
-                    {
+                        dynamic result = GeoCode(address);
+                        if (result.status == "OK")
+                        {
+                            resIncome.Latitude = result.results[0].geometry.location.lat;
+                            resIncome.Longitude = result.results[0].geometry.location.lng;
+                            resIncomes.Add(resIncome);
+                            resolved = true;
+                            break;
+                        }else
+                        {
+                            System.Threading.Thread.Sleep(500);
+                        }
                     }
 
+                    if (!resolved)
+                    {
+                        Console.WriteLine("failed to convert" + resIncome.ListingKey);
+                        writer.WriteLine(line);
+                    }
 
                     if (resIncomes.Count >= 100)
                     {
                         var klmServiceClient = GetClient(@"http://kmlservice.azurewebsites.net/");
-
                         var status = klmServiceClient.PostAsJsonAsync<List<ResIncome>>(@"api/resincome/", resIncomes).Result.Content.ReadAsStringAsync().Result;
-
-                        resIncomes.Clear();
-                        break;
+                        resIncomes.Clear();                        
                     }
 
                 }
@@ -145,6 +175,22 @@ namespace loader
 
             }
 
+            if (resIncomes.Count > 0)
+            {
+                var klmServiceClient = GetClient(@"http://kmlservice.azurewebsites.net/");
+
+                var status = klmServiceClient.PostAsJsonAsync<List<ResIncome>>(@"api/resincome/", resIncomes).Result.Content.ReadAsStringAsync().Result;
+            }
+
+        }
+
+        private static dynamic GeoCode(string address)
+        {
+            var client = GetClient(@"http://maps.googleapis.com");
+            string path = @"maps/api/geocode/json?sensor=true&address=" + HttpUtility.UrlEncode(address);
+            var content = client.GetAsync(path).Result.Content;
+            dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(content.ReadAsStringAsync().Result);
+            return result;
         }
     }
 }
