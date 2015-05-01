@@ -15,15 +15,17 @@ namespace kmlservice
     public partial class vwResIncomeSummary
     {
         public string MLnumber { get; set; }
+        public Nullable<double> ListingKey { get; set; }
         public string StreetName { get; set; }
         public string StreetNumber { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
+        public string PostalCode { get; set; }
         public string PropertyDescription { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinate { get; set; }
-        public Nullable<double> longitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> LotSquareFootage { get; set; }
-        public Nullable<double> ListingKey { get; set; }
         public string MediaURL { get; set; }
     }
 }

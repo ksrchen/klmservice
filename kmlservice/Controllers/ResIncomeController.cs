@@ -86,7 +86,7 @@ namespace kmlservice.Controllers
                     // db.Database.CommandTimeout = 5 * 60;
                     var g = DbGeography.FromText(request.Polygon);
 
-                    var result = from i in db.ResIncomes.AsNoTracking()
+                    var result = from i in db.vwResIncomeSummaries.AsNoTracking()
                                  where g.Intersects(i.Coordinate) 
                                  select i;
                                 
@@ -108,7 +108,10 @@ namespace kmlservice.Controllers
                                  StreetNumber = i.StreetNumber,
                                  LotSquareFootage = i.LotSquareFootage,
                                  State = i.State,
-                                 PostalCode = i.PostalCode
+                                 PostalCode = i.PostalCode,
+                                 MediaURL = i.MediaURL,
+                                 ListingKey = ((int) i.ListingKey).ToString(),
+
                              };
 
                     return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, items.ToList()); 
@@ -137,6 +140,8 @@ namespace kmlservice.Controllers
         public double? LotSquareFootage { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
+        public String ListingKey { get; set; }
+        public String MediaURL { get; set; }
     }
 
     public class SearchRequest
