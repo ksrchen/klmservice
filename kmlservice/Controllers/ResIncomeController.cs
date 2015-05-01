@@ -63,7 +63,17 @@ namespace kmlservice.Controllers
                                  PostalCode = i.PostalCode
                              };
 
-                    return Request.CreateResponse<ResIncomeSummary>(HttpStatusCode.OK, query.FirstOrDefault());
+                    var item = query.FirstOrDefault();
+                    if (item != null)
+                    {
+                        item.MediaURLs = new List<string>();
+                        foreach (var q in db.attachments.Where(p => p.ClassKey == item.ListingKey))
+                        {
+                            item.MediaURLs.Add(q.MediaURL);
+                        }
+                    }
+
+                    return Request.CreateResponse<ResIncomeSummary>(HttpStatusCode.OK, item);
                 }
             }
             catch (Exception exp)
@@ -142,6 +152,8 @@ namespace kmlservice.Controllers
         public string PostalCode { get; set; }
         public String ListingKey { get; set; }
         public String MediaURL { get; set; }
+
+        public List<String> MediaURLs { get; set; }
     }
 
     public class SearchRequest

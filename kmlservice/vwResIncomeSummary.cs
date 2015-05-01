@@ -27,5 +27,6 @@ namespace kmlservice
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> LotSquareFootage { get; set; }
         public string MediaURL { get; set; }
+        public Nullable<double> GrossOperatingIncome { get; set; }
     }
 }

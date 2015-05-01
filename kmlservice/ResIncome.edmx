@@ -314,6 +314,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
         <EntityType Name="vwResIncomeSummary">
           <Key>
             <PropertyRef Name="MLnumber" />
+            
           </Key>
           <Property Name="MLnumber" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="ListingKey" Type="float" />
@@ -327,7 +328,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
           <Property Name="LotSquareFootage" Type="float" />
-          <Property Name="MediaURL" Type="varchar" MaxLength="500" />
+          <Property Name="GrossOperatingIncome" Type="float" />
+          <Property Name="MediaURL" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <Association Name="FK_Favoriate_ResIncome">
           <End Role="ResIncome" Type="Self.ResIncome" Multiplicity="1" />
@@ -372,6 +374,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     [vwResIncomeSummary].[Longitude] AS [Longitude], 
     [vwResIncomeSummary].[Latitude] AS [Latitude], 
     [vwResIncomeSummary].[LotSquareFootage] AS [LotSquareFootage], 
+    [vwResIncomeSummary].[GrossOperatingIncome] AS [GrossOperatingIncome], 
     [vwResIncomeSummary].[MediaURL] AS [MediaURL]
     FROM [dbo].[vwResIncomeSummary] AS [vwResIncomeSummary]</DefiningQuery>
           </EntitySet>
@@ -751,7 +754,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
           <Property Name="LotSquareFootage" Type="Double" />
-          <Property Name="MediaURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MediaURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GrossOperatingIncome" Type="Double" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1070,6 +1074,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySetMapping Name="vwResIncomeSummaries">
             <EntityTypeMapping TypeName="ResIncomeModel.vwResIncomeSummary">
               <MappingFragment StoreEntitySet="vwResIncomeSummary">
+                <ScalarProperty Name="GrossOperatingIncome" ColumnName="GrossOperatingIncome" />
                 <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
                 <ScalarProperty Name="LotSquareFootage" ColumnName="LotSquareFootage" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
