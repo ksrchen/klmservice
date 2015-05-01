@@ -60,7 +60,8 @@ namespace kmlservice.Controllers
                                  StreetNumber = i.StreetNumber,
                                  LotSquareFootage = i.LotSquareFootage,
                                  State = i.State,
-                                 PostalCode = i.PostalCode
+                                 PostalCode = i.PostalCode,
+                                 ListingKey = ((int) i.ListingKey).ToString()
                              };
 
                     var item = query.FirstOrDefault();
