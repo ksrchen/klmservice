@@ -49,7 +49,7 @@ namespace kmlservice.Controllers
                 using (var db = new ResIncomeEntities())
                 {
                     var query = from i in db.ResIncomes where i.MLnumber == id 
-                                select new ResIncomeSummary
+                                select new ResIncomeDetail
                                 {
                                  MLnumber = i.MLnumber,
                                  City = i.City,
@@ -61,17 +61,34 @@ namespace kmlservice.Controllers
                                  LotSquareFootage = i.LotSquareFootage,
                                  State = i.State,
                                  PostalCode = i.PostalCode,
-                                 ListingKey = ((int) i.ListingKey).ToString()
+                                 ListingKey = ((int) i.ListingKey).ToString(),
+                                 ListingAgentFirstName = i.LA_FirstName,
+                                 ListingAgentLastName = i.LA_LastName,
+                                 ListingOffice = i.LO_Name,
+                                 ROI = i.ROI.HasValue? i.ROI.Value: 0,
+                                 ListPrice = i.ListPrice.HasValue? i.ListPrice.Value: 0,
+                                 NumberOfUnits = i.NumberUnits.HasValue? i.NumberUnits.Value : 0 
                              };
 
                     var item = query.FirstOrDefault();
                     if (item != null)
                     {
                         item.MediaURLs = new List<string>();
-                        foreach (var q in db.attachments.Where(p => p.ClassKey == item.ListingKey))
+                        foreach (var q in db.attachments.Where(p => p.ClassKey == item.ListingKey && p.MediaType == "IMAGE"))
                         {
                             item.MediaURLs.Add(q.MediaURL);
                         }
+                    }
+
+                    var expense = db.vwExpenses.FirstOrDefault(p => ((int) p.ListingKey).ToString() == item.ListingKey);
+                    if (expense != null)
+                    {
+                        item.GrossIncome = expense.GrossIncome;
+                        item.Mortage = expense.Mortage;
+                        item.PropetyTax = expense.PropertyTax;
+                        item.PropertyManagementFee = expense.PropertyManagement;
+                        item.Insurance = (double?) expense.Insurance;
+                        item.Downpayment = expense.DownPayment;
                     }
 
                     return Request.CreateResponse<ResIncomeSummary>(HttpStatusCode.OK, item);
@@ -122,7 +139,9 @@ namespace kmlservice.Controllers
                                  PostalCode = i.PostalCode,
                                  MediaURL = i.MediaURL,
                                  ListingKey = ((int) i.ListingKey).ToString(),
-
+                                 ROI = i.ROI.HasValue? i.ROI.Value :0,
+                                 ListPrice = i.ListPrice.HasValue? i.ListPrice.Value: 0,
+                                 NumberOfUnits = i.NumberUnits.HasValue? i.NumberUnits.Value: 0,
                              };
 
                     return Request.CreateResponse<List<ResIncomeSummary>>(HttpStatusCode.OK, items.ToList()); 
@@ -153,10 +172,26 @@ namespace kmlservice.Controllers
         public string PostalCode { get; set; }
         public String ListingKey { get; set; }
         public String MediaURL { get; set; }
-
-        public List<String> MediaURLs { get; set; }
+        public double ROI { get; set; }
+        public double ListPrice { get; set; }
+        public double NumberOfUnits { get; set; }
+        
     }
+    public class ResIncomeDetail : ResIncomeSummary
+    {
+        public List<String> MediaURLs { get; set; }
+        public string ListingAgentFirstName { get; set; }
+        public string ListingAgentLastName { get; set; }
+        public string ListingOffice { get; set; }
 
+        public double? Mortage { get; set; }
+        public double? PropetyTax { get; set; }
+        public double? PropertyManagementFee { get; set; }
+        public double? Insurance { get; set; }
+        public double? Downpayment { get; set; }
+        public double? GrossIncome { get; set; }
+            
+    }
     public class SearchRequest
     {
         public string Polygon { get; set; }
