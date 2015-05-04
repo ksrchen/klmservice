@@ -45,7 +45,8 @@ namespace kmlservice.Controllers
                 using (var db = new ResIncomeEntities())
                 {
                     var query = from i in db.attachments
-                                where i.ClassKey == id orderby i.MediaOrder 
+                                where i.ClassKey == id && i.MediaType == "IMAGE"
+                                orderby i.MediaOrder 
                                 select new attachment
                                 {
                                     ID = i.ID,
