@@ -60,7 +60,8 @@ namespace loader
 
         static void Main(string[] args)
         {
-            loadAttachment();
+            loadProperty();
+            //loadAttachment();
 
         }
 
@@ -166,7 +167,13 @@ namespace loader
                     resIncome.Floor = data[Array.IndexOf(columnHeader, "Floor")];
 
                     resIncome.GrossMultiplier = convert2Double(data[Array.IndexOf(columnHeader, "GrossMultiplier")]);
+                    resIncome.GrossScheduledIncome = convert2Double(data[Array.IndexOf(columnHeader, "GrossScheduledIncome")]);
                     resIncome.GrossOperatingIncome = convert2Double(data[Array.IndexOf(columnHeader, "GrossOperatingIncome")]);
+
+                    resIncome.LA_FirstName = data[Array.IndexOf(columnHeader, "LA_FirstName")];
+                    resIncome.LA_LastName = data[Array.IndexOf(columnHeader, "LA_LastName")];
+                    resIncome.LO_Name = data[Array.IndexOf(columnHeader, "LO_Name")];
+
                     resIncome.ListPrice = convert2Double(data[Array.IndexOf(columnHeader, "ListPrice")]);
                     resIncome.LotSquareFootage = convert2Double(data[Array.IndexOf(columnHeader, "LotSquareFootage")]);
                     resIncome.MonthlyGrossIncome = convert2Double(data[Array.IndexOf(columnHeader, "MonthlyGrossIncome")]);
