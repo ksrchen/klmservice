@@ -297,6 +297,7 @@
           <Property Name="Latitude" Type="float" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Coordinate" Type="geography" />
+          <Property Name="ROI" Type="float" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -308,6 +309,21 @@
           <Property Name="LastName" Type="varchar" MaxLength="200" />
           <Property Name="LastSignOn" Type="datetimeoffset" Precision="7" />
           <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ResIncome.dbo.vwExpense' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwExpense">
+          <Key>
+            <PropertyRef Name="Insurance" />
+          </Key>
+          <Property Name="ListingKey" Type="float" />
+          <Property Name="ListPrice" Type="float" />
+          <Property Name="DownPayment" Type="float" />
+          <Property Name="GrossIncome" Type="float" />
+          <Property Name="Mortage" Type="float" />
+          <Property Name="PropertyTax" Type="float" />
+          <Property Name="PropertyManagement" Type="float" />
+          <Property Name="Insurance" Type="numeric" Precision="1" Scale="1" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -330,6 +346,9 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="LotSquareFootage" Type="float" />
           <Property Name="GrossOperatingIncome" Type="float" />
           <Property Name="MediaURL" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ROI" Type="float" />
+          <Property Name="ListPrice" Type="float" />
+          <Property Name="NumberUnits" Type="float" />
         </EntityType>
         <Association Name="FK_Favoriate_ResIncome">
           <End Role="ResIncome" Type="Self.ResIncome" Multiplicity="1" />
@@ -360,6 +379,18 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySet Name="Favoriate" EntityType="Self.Favoriate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResIncome" EntityType="Self.ResIncome" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwExpense" EntityType="Self.vwExpense" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwExpense].[ListingKey] AS [ListingKey], 
+    [vwExpense].[ListPrice] AS [ListPrice], 
+    [vwExpense].[DownPayment] AS [DownPayment], 
+    [vwExpense].[GrossIncome] AS [GrossIncome], 
+    [vwExpense].[Mortage] AS [Mortage], 
+    [vwExpense].[PropertyTax] AS [PropertyTax], 
+    [vwExpense].[PropertyManagement] AS [PropertyManagement], 
+    [vwExpense].[Insurance] AS [Insurance]
+    FROM [dbo].[vwExpense] AS [vwExpense]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vwResIncomeSummary" EntityType="Self.vwResIncomeSummary" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwResIncomeSummary].[MLnumber] AS [MLnumber], 
@@ -375,7 +406,10 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     [vwResIncomeSummary].[Latitude] AS [Latitude], 
     [vwResIncomeSummary].[LotSquareFootage] AS [LotSquareFootage], 
     [vwResIncomeSummary].[GrossOperatingIncome] AS [GrossOperatingIncome], 
-    [vwResIncomeSummary].[MediaURL] AS [MediaURL]
+    [vwResIncomeSummary].[MediaURL] AS [MediaURL], 
+    [vwResIncomeSummary].[ROI] AS [ROI], 
+    [vwResIncomeSummary].[ListPrice] AS [ListPrice], 
+    [vwResIncomeSummary].[NumberUnits] AS [NumberUnits]
     FROM [dbo].[vwResIncomeSummary] AS [vwResIncomeSummary]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Favoriate_ResIncome" Association="Self.FK_Favoriate_ResIncome">
@@ -405,6 +439,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           </AssociationSet>
           <EntitySet Name="attachments" EntityType="ResIncomeModel.attachment" />
           <EntitySet Name="vwResIncomeSummaries" EntityType="ResIncomeModel.vwResIncomeSummary" />
+          <EntitySet Name="vwExpenses" EntityType="ResIncomeModel.vwExpense" />
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -681,6 +716,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinate" Type="Geography" />
           <NavigationProperty Name="Favoriates" Relationship="ResIncomeModel.FK_Favoriate_ResIncome" FromRole="ResIncome" ToRole="Favoriate" />
+          <Property Name="ROI" Type="Double" />
         </EntityType>
         <EntityType Name="Favoriate">
           <Key>
@@ -756,6 +792,22 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="LotSquareFootage" Type="Double" />
           <Property Name="MediaURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="GrossOperatingIncome" Type="Double" />
+          <Property Name="ROI" Type="Double" />
+          <Property Name="ListPrice" Type="Double" />
+          <Property Name="NumberUnits" Type="Double" />
+        </EntityType>
+        <EntityType Name="vwExpense">
+          <Key>
+            <PropertyRef Name="Insurance" />
+          </Key>
+          <Property Name="ListingKey" Type="Double" />
+          <Property Name="ListPrice" Type="Double" />
+          <Property Name="DownPayment" Type="Double" />
+          <Property Name="GrossIncome" Type="Double" />
+          <Property Name="Mortage" Type="Double" />
+          <Property Name="PropertyTax" Type="Double" />
+          <Property Name="PropertyManagement" Type="Double" />
+          <Property Name="Insurance" Type="Decimal" Nullable="false" Precision="1" Scale="1" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -778,6 +830,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySetMapping Name="ResIncomes">
             <EntityTypeMapping TypeName="ResIncomeModel.ResIncome">
               <MappingFragment StoreEntitySet="ResIncome">
+                <ScalarProperty Name="ROI" ColumnName="ROI" />
                 <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
@@ -1074,6 +1127,9 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySetMapping Name="vwResIncomeSummaries">
             <EntityTypeMapping TypeName="ResIncomeModel.vwResIncomeSummary">
               <MappingFragment StoreEntitySet="vwResIncomeSummary">
+                <ScalarProperty Name="NumberUnits" ColumnName="NumberUnits" />
+                <ScalarProperty Name="ListPrice" ColumnName="ListPrice" />
+                <ScalarProperty Name="ROI" ColumnName="ROI" />
                 <ScalarProperty Name="GrossOperatingIncome" ColumnName="GrossOperatingIncome" />
                 <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
                 <ScalarProperty Name="LotSquareFootage" ColumnName="LotSquareFootage" />
@@ -1088,6 +1144,20 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="StreetName" ColumnName="StreetName" />
                 <ScalarProperty Name="ListingKey" ColumnName="ListingKey" />
                 <ScalarProperty Name="MLnumber" ColumnName="MLnumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwExpenses">
+            <EntityTypeMapping TypeName="ResIncomeModel.vwExpense">
+              <MappingFragment StoreEntitySet="vwExpense">
+                <ScalarProperty Name="Insurance" ColumnName="Insurance" />
+                <ScalarProperty Name="PropertyManagement" ColumnName="PropertyManagement" />
+                <ScalarProperty Name="PropertyTax" ColumnName="PropertyTax" />
+                <ScalarProperty Name="Mortage" ColumnName="Mortage" />
+                <ScalarProperty Name="GrossIncome" ColumnName="GrossIncome" />
+                <ScalarProperty Name="DownPayment" ColumnName="DownPayment" />
+                <ScalarProperty Name="ListPrice" ColumnName="ListPrice" />
+                <ScalarProperty Name="ListingKey" ColumnName="ListingKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

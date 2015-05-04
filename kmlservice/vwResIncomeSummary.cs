@@ -28,5 +28,8 @@ namespace kmlservice
         public Nullable<double> LotSquareFootage { get; set; }
         public string MediaURL { get; set; }
         public Nullable<double> GrossOperatingIncome { get; set; }
+        public Nullable<double> ROI { get; set; }
+        public Nullable<double> ListPrice { get; set; }
+        public Nullable<double> NumberUnits { get; set; }
     }
 }

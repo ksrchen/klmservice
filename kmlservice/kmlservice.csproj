@@ -194,6 +194,7 @@
     <Compile Include="Controllers\AttachmentsController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HottestPropertiesController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\ResIncomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -242,6 +243,9 @@
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwExpense.cs">
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>
     <Compile Include="vwResIncomeSummary.cs">

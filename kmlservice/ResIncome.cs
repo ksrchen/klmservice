@@ -277,6 +277,7 @@ namespace kmlservice
         public Nullable<double> Latitude { get; set; }
         public Nullable<double> Longitude { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinate { get; set; }
+        public Nullable<double> ROI { get; set; }
     
         public virtual ICollection<Favoriate> Favoriates { get; set; }
     }
