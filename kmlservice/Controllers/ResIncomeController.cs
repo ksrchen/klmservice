@@ -85,8 +85,8 @@ namespace kmlservice.Controllers
                     {
                         item.GrossIncome = expense.GrossIncome;
                         item.Mortage = expense.Mortage;
-                        item.PropetyTax = expense.PropertyTax;
-                        item.PropertyManagementFee = expense.PropertyManagement;
+                        item.PropertyTax = expense.PropertyTax;
+                        item.PropertyManagement = expense.PropertyManagement;
                         item.Insurance = (double?) expense.Insurance;
                         item.Downpayment = expense.DownPayment;
                     }
@@ -185,8 +185,8 @@ namespace kmlservice.Controllers
         public string ListingOffice { get; set; }
 
         public double? Mortage { get; set; }
-        public double? PropetyTax { get; set; }
-        public double? PropertyManagementFee { get; set; }
+        public double? PropertyTax { get; set; }
+        public double? PropertyManagement { get; set; }
         public double? Insurance { get; set; }
         public double? Downpayment { get; set; }
         public double? GrossIncome { get; set; }
