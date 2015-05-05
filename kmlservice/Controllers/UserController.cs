@@ -39,6 +39,7 @@ namespace kmlservice.Controllers
         }
 
         [HttpGet]
+        [AuditFilter]
         public HttpResponseMessage Login(string userID, string password)
         {
             try

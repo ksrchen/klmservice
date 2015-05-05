@@ -27,6 +27,18 @@
           <Property Name="TimestampModified" Type="varchar" MaxLength="50" />
           <Property Name="TimestampUploaded" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Audit">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="500" />
+          <Property Name="Controller" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Action" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="500" />
+          <Property Name="Data" Type="varchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Favoriate">
           <Key>
             <PropertyRef Name="FavoriateID" />
@@ -376,6 +388,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
         </Association>
         <EntityContainer Name="ResIncomeModelStoreContainer">
           <EntitySet Name="attachments" EntityType="Self.attachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Audit" EntityType="Self.Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favoriate" EntityType="Self.Favoriate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResIncome" EntityType="Self.ResIncome" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -440,6 +453,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySet Name="attachments" EntityType="ResIncomeModel.attachment" />
           <EntitySet Name="vwResIncomeSummaries" EntityType="ResIncomeModel.vwResIncomeSummary" />
           <EntitySet Name="vwExpenses" EntityType="ResIncomeModel.vwExpense" />
+          <EntitySet Name="Audits" EntityType="ResIncomeModel.Audit" />
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -809,6 +823,18 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="PropertyManagement" Type="Double" />
           <Property Name="Insurance" Type="Decimal" Nullable="false" Precision="1" Scale="1" />
         </EntityType>
+        <EntityType Name="Audit">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1158,6 +1184,19 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="DownPayment" ColumnName="DownPayment" />
                 <ScalarProperty Name="ListPrice" ColumnName="ListPrice" />
                 <ScalarProperty Name="ListingKey" ColumnName="ListingKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Audits">
+            <EntityTypeMapping TypeName="ResIncomeModel.Audit">
+              <MappingFragment StoreEntitySet="Audit">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

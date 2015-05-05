@@ -191,6 +191,9 @@
     <Compile Include="attachment.cs">
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>
+    <Compile Include="Audit.cs">
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AttachmentsController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -201,6 +204,7 @@
     <Compile Include="Favoriate.cs">
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\AuditFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

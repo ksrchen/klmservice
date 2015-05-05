@@ -42,6 +42,7 @@ namespace kmlservice.Controllers
         }
 
         [HttpGet]
+        [AuditFilter]
         public HttpResponseMessage Get(string id)
         {
             try
@@ -105,6 +106,7 @@ namespace kmlservice.Controllers
    
 
      [HttpPut]
+     [AuditFilter]
         public HttpResponseMessage Search(SearchRequest request)
         {
             try
