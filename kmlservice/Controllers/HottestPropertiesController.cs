@@ -19,7 +19,7 @@ namespace kmlservice.Controllers
                 {
                     
 
-                    var result = (from i in db.vwResIncomeSummaries.AsNoTracking() orderby i.ROI descending
+                    var result = (from i in db.vwResIncomeSummaries.AsNoTracking() where i.ROI > 0.1 orderby i.ROI descending
                                  select i).Take(10);
 
                     var items = from i in result
@@ -37,6 +37,9 @@ namespace kmlservice.Controllers
                                     PostalCode = i.PostalCode,
                                     MediaURL = i.MediaURL,
                                     ListingKey = ((int)i.ListingKey).ToString(),
+                                    ROI = i.ROI.HasValue ? i.ROI.Value : 0,
+                                    ListPrice = i.ListPrice.HasValue ? i.ListPrice.Value : 0,
+                                    NumberOfUnits = i.NumberUnits.HasValue ? i.NumberUnits.Value : 0,
 
                                 };
 
