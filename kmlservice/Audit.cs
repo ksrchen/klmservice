@@ -20,6 +20,6 @@ namespace kmlservice
         public string Action { get; set; }
         public string ID { get; set; }
         public string Data { get; set; }
-        public System.DateTime Created { get; set; }
+        public System.DateTimeOffset Created { get; set; }
     }
 }

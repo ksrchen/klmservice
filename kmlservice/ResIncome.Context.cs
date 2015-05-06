@@ -31,7 +31,7 @@ namespace kmlservice
         public virtual DbSet<attachment> attachments { get; set; }
         public virtual DbSet<vwResIncomeSummary> vwResIncomeSummaries { get; set; }
         public virtual DbSet<vwExpense> vwExpenses { get; set; }
-        public virtual DbSet<Audit> Audits { get; set; }
         public virtual DbSet<vwFavoriate> vwFavoriates { get; set; }
+        public virtual DbSet<Audit> Audits { get; set; }
     }
 }

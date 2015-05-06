@@ -26,7 +26,7 @@ namespace kmlservice
                     UserID = from,
                     Action = action,
                     Controller = controller,
-                    Created = DateTime.Now,
+                    Created = DateTimeOffset.Now,
                     Data = data,
                     ID = id
                 });

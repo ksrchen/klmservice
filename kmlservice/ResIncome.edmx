@@ -37,7 +37,7 @@
           <Property Name="Action" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="ID" Type="varchar" MaxLength="500" />
           <Property Name="Data" Type="varchar(max)" />
-          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Created" Type="datetimeoffset" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Favoriate">
           <Key>
@@ -505,8 +505,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySet Name="attachments" EntityType="ResIncomeModel.attachment" />
           <EntitySet Name="vwResIncomeSummaries" EntityType="ResIncomeModel.vwResIncomeSummary" />
           <EntitySet Name="vwExpenses" EntityType="ResIncomeModel.vwExpense" />
-          <EntitySet Name="Audits" EntityType="ResIncomeModel.Audit" />
           <EntitySet Name="vwFavoriates" EntityType="ResIncomeModel.vwFavoriate" />
+          <EntitySet Name="Audits" EntityType="ResIncomeModel.Audit" />
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -876,18 +876,6 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="PropertyManagement" Type="Double" />
           <Property Name="Insurance" Type="Decimal" Nullable="false" Precision="1" Scale="1" />
         </EntityType>
-        <EntityType Name="Audit">
-          <Key>
-            <PropertyRef Name="AuditID" />
-          </Key>
-          <Property Name="AuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Controller" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Action" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="vwFavoriate">
           <Key>
             <PropertyRef Name="FavoriateID" />
@@ -914,6 +902,18 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="roi" Type="Double" />
           <Property Name="ListPrice" Type="Double" />
           <Property Name="NumberUnits" Type="Double" />
+        </EntityType>
+        <EntityType Name="Audit">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Created" Type="DateTimeOffset" Nullable="false" Precision="7" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1267,19 +1267,6 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Audits">
-            <EntityTypeMapping TypeName="ResIncomeModel.Audit">
-              <MappingFragment StoreEntitySet="Audit">
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="Controller" ColumnName="Controller" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vwFavoriates">
             <EntityTypeMapping TypeName="ResIncomeModel.vwFavoriate">
               <MappingFragment StoreEntitySet="vwFavoriate">
@@ -1302,6 +1289,19 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="MLnumber" ColumnName="MLnumber" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FavoriateID" ColumnName="FavoriateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Audits">
+            <EntityTypeMapping TypeName="ResIncomeModel.Audit">
+              <MappingFragment StoreEntitySet="Audit">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
