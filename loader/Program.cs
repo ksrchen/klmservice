@@ -52,7 +52,7 @@ namespace loader
 
                 var parts = line.Split(new char[] { ',' });
 
-                result[parts[1]] = parts[0];
+                result[parts[0]] = parts[1];
             }
             return result;
 
@@ -207,7 +207,7 @@ namespace loader
                     string address = string.Format("{0} {1} {2} {3}, {4}",
                         resIncome.StreetNumber,
                         resIncome.StreetName,
-                        CityMap.ContainsKey(resIncome.City)?CityMap[resIncome.City]:resIncome.City,
+                        CityMap.ContainsKey(resIncome.City)?CityMap[resIncome.City]:string.Empty,
                         resIncome.State,
                         resIncome.PostalCode);
 

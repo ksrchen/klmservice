@@ -223,6 +223,7 @@
     <Compile Include="Audit.cs">
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttachmentsController.cs" />
     <Compile Include="Controllers\FavoriteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -257,6 +258,7 @@
       <DependentUpon>location.tt</DependentUpon>
     </Compile>
     <Compile Include="Location_partial.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResIncome.Context.cs">
       <AutoGen>True</AutoGen>
@@ -406,10 +408,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\LoadData\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
