@@ -4,29 +4,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+ @*  @Styles.Render("~/Content/css")*@
+    @Styles.Render("~/Content/bootstrap")
+
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a></p>
-            </div>
-            <div class="float-right">
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
+   
+        <div class="container body-content">
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div>
+                        <a class="navbar-brand" href="/">Chrometopia</a>
+                        <ul class="nav navbar-nav">
+                            <li><a href="/">Reports</a></li>
+                            <li><a href="/LoadData">Load Data</a></li>
+                        </ul>
+                        </div>
+                    </div>
                 </nav>
-            </div>
+            @RenderBody()
         </div>
-    </header>
-    @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
