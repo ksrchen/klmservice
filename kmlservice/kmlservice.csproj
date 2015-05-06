@@ -252,6 +252,9 @@
     <Compile Include="vwExpense.cs">
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>
+    <Compile Include="vwFavoriate.cs">
+      <DependentUpon>ResIncome.tt</DependentUpon>
+    </Compile>
     <Compile Include="vwResIncomeSummary.cs">
       <DependentUpon>ResIncome.tt</DependentUpon>
     </Compile>

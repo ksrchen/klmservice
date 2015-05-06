@@ -338,6 +338,35 @@ warning 6002: The table/view 'ResIncome.dbo.vwExpense' does not have a primary k
           <Property Name="Insurance" Type="numeric" Precision="1" Scale="1" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'ResIncome.dbo.vwFavoriate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwFavoriate">
+          <Key>
+            <PropertyRef Name="FavoriateID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="MLnumber" />
+            <PropertyRef Name="MediaURL" />
+          </Key>
+          <Property Name="FavoriateID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="MLnumber" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ListingKey" Type="float" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="255" />
+          <Property Name="StreetNumber" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" />
+          <Property Name="State" Type="nvarchar" MaxLength="255" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PropertyDescription" Type="nvarchar(max)" />
+          <Property Name="Coordinate" Type="geography" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="LotSquareFootage" Type="float" />
+          <Property Name="GrossOperatingIncome" Type="float" />
+          <Property Name="MediaURL" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="roi" Type="float" />
+          <Property Name="ListPrice" Type="float" />
+          <Property Name="NumberUnits" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwResIncomeSummary">
           <Key>
@@ -404,6 +433,29 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     [vwExpense].[Insurance] AS [Insurance]
     FROM [dbo].[vwExpense] AS [vwExpense]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="vwFavoriate" EntityType="Self.vwFavoriate" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwFavoriate].[FavoriateID] AS [FavoriateID], 
+    [vwFavoriate].[UserID] AS [UserID], 
+    [vwFavoriate].[MLnumber] AS [MLnumber], 
+    [vwFavoriate].[ListingKey] AS [ListingKey], 
+    [vwFavoriate].[StreetName] AS [StreetName], 
+    [vwFavoriate].[StreetNumber] AS [StreetNumber], 
+    [vwFavoriate].[City] AS [City], 
+    [vwFavoriate].[State] AS [State], 
+    [vwFavoriate].[PostalCode] AS [PostalCode], 
+    [vwFavoriate].[PropertyDescription] AS [PropertyDescription], 
+    [vwFavoriate].[Coordinate] AS [Coordinate], 
+    [vwFavoriate].[Longitude] AS [Longitude], 
+    [vwFavoriate].[Latitude] AS [Latitude], 
+    [vwFavoriate].[LotSquareFootage] AS [LotSquareFootage], 
+    [vwFavoriate].[GrossOperatingIncome] AS [GrossOperatingIncome], 
+    [vwFavoriate].[MediaURL] AS [MediaURL], 
+    [vwFavoriate].[roi] AS [roi], 
+    [vwFavoriate].[ListPrice] AS [ListPrice], 
+    [vwFavoriate].[NumberUnits] AS [NumberUnits]
+    FROM [dbo].[vwFavoriate] AS [vwFavoriate]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vwResIncomeSummary" EntityType="Self.vwResIncomeSummary" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwResIncomeSummary].[MLnumber] AS [MLnumber], 
@@ -454,6 +506,7 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <EntitySet Name="vwResIncomeSummaries" EntityType="ResIncomeModel.vwResIncomeSummary" />
           <EntitySet Name="vwExpenses" EntityType="ResIncomeModel.vwExpense" />
           <EntitySet Name="Audits" EntityType="ResIncomeModel.Audit" />
+          <EntitySet Name="vwFavoriates" EntityType="ResIncomeModel.vwFavoriate" />
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -835,6 +888,33 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="vwFavoriate">
+          <Key>
+            <PropertyRef Name="FavoriateID" />
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="MLnumber" />
+            <PropertyRef Name="MediaURL" />
+          </Key>
+          <Property Name="FavoriateID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MLnumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ListingKey" Type="Double" />
+          <Property Name="StreetName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StreetNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Coordinate" Type="Geography" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="LotSquareFootage" Type="Double" />
+          <Property Name="GrossOperatingIncome" Type="Double" />
+          <Property Name="MediaURL" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="roi" Type="Double" />
+          <Property Name="ListPrice" Type="Double" />
+          <Property Name="NumberUnits" Type="Double" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1197,6 +1277,31 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="Controller" ColumnName="Controller" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwFavoriates">
+            <EntityTypeMapping TypeName="ResIncomeModel.vwFavoriate">
+              <MappingFragment StoreEntitySet="vwFavoriate">
+                <ScalarProperty Name="NumberUnits" ColumnName="NumberUnits" />
+                <ScalarProperty Name="ListPrice" ColumnName="ListPrice" />
+                <ScalarProperty Name="roi" ColumnName="roi" />
+                <ScalarProperty Name="MediaURL" ColumnName="MediaURL" />
+                <ScalarProperty Name="GrossOperatingIncome" ColumnName="GrossOperatingIncome" />
+                <ScalarProperty Name="LotSquareFootage" ColumnName="LotSquareFootage" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
+                <ScalarProperty Name="PropertyDescription" ColumnName="PropertyDescription" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="ListingKey" ColumnName="ListingKey" />
+                <ScalarProperty Name="MLnumber" ColumnName="MLnumber" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FavoriateID" ColumnName="FavoriateID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

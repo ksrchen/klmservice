@@ -18,20 +18,25 @@ namespace kmlservice.Controllers
             {
                 using (var db = new ResIncomeEntities())
                 {
-                    var query = from f in db.Favoriates
+                    var query = from f in db.vwFavoriates
                                 where f.UserID == userId
                                 select new ResIncomeSummary
                             {
-                                MLnumber = f.ResIncome.MLnumber,
-                                City = f.ResIncome.City,
-                                Latitude = f.ResIncome.Latitude,
-                                longitude = f.ResIncome.Longitude,
-                                PropertyDescription = f.ResIncome.PropertyDescription,
-                                StreetName = f.ResIncome.StreetName,
-                                StreetNumber = f.ResIncome.StreetNumber,
-                                LotSquareFootage = f.ResIncome.LotSquareFootage,
-                                State = f.ResIncome.State,
-                                PostalCode = f.ResIncome.PostalCode
+                                MLnumber = f.MLnumber,
+                                City = f.City,
+                                Latitude = f.Latitude,
+                                longitude = f.Longitude,
+                                PropertyDescription = f.PropertyDescription,
+                                StreetName = f.StreetName,
+                                StreetNumber = f.StreetNumber,
+                                LotSquareFootage = f.LotSquareFootage,
+                                State = f.State,
+                                PostalCode = f.PostalCode,
+                                MediaURL = f.MediaURL,
+                                ListingKey = ((int)f.ListingKey).ToString(),
+                                ROI = f.roi.HasValue ? f.roi.Value : 0,
+                                ListPrice = f.ListPrice.HasValue ? f.ListPrice.Value : 0,
+                                NumberOfUnits = f.NumberUnits.HasValue ? f.NumberUnits.Value : 0,
                             };
 
                     return Request.CreateResponse(HttpStatusCode.OK, query.ToList());
