@@ -1,4 +1,6 @@
-﻿<div class="panel panel-default">
+﻿@model dynamic
+
+<div class="panel panel-default">
 <div class="panel-heading">
     <div class="row">
         <div class="col-md-2"><button>Export to CSV</button></div>
@@ -11,4 +13,24 @@
         </select>
         </div>
     </div>
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th data-field="id">User</th>
+                <th data-field="id">Email</th>
+                <th data-field="name">MLS#</th>
+                <th data-field="price">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) { 
+            <tr>
+                <td>@item.User</td>
+                <td>@item.Email</td>
+                <td>@item.MLSNumber</td>
+                <td>@item.Created</td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>
