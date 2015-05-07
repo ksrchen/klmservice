@@ -19,7 +19,7 @@ namespace kmlservice.Controllers
                 switch(dateFilter)
                 {
                     case 0:
-                        start = start.AddDays(-1);
+                        start = start.Date;
                         break;
                     case 1:
                         start = start.AddDays(-7);
@@ -64,6 +64,7 @@ namespace kmlservice.Controllers
                 }
                 else
                 {
+                    ViewBag.dateFilter = dateFilter;
                     return View(query.ToList());
                 }
             }

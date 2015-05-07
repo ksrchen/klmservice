@@ -6,11 +6,11 @@
         <div class="col-md-2"><button type="Button" id="Export">Export to CSV</button></div>
         <div class="col-md-6">Show Data for
         <select id="DateFilter">
-            <option value="0" selected>Today</option>
-            <option value="1">This Week</option>
-            <option value="2">This Month</option>
-            <option value="3">Last 3 Months</option>
-            <option value="4">Last 6 Months</option>
+            <option value="0" @(ViewBag.dateFilter==0? "Selected" : "")>Today</option>
+            <option value="1" @(ViewBag.dateFilter==1? "Selected" : "")>Last 7 days</option>
+            <option value="2" @(ViewBag.dateFilter==2? "Selected" : "")>Last Month</option>
+            <option value="3" @(ViewBag.dateFilter==3? "Selected" : "")>Last 3 Months</option>
+            <option value="4" @(ViewBag.dateFilter==4? "Selected" : "")>Last 6 Months</option>
         </select>
         </div>
     </div>
