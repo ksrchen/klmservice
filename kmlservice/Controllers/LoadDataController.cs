@@ -14,5 +14,18 @@ namespace kmlservice.Controllers
         {
             return View();
         }
+         [HttpPost]
+        public ActionResult LoadListing(HttpPostedFileBase file)
+        {
+            ViewBag.message = "Loaded";
+            return View("Index");
+        }
+         [HttpPost]
+         public ActionResult LoadAttachment(HttpPostedFileBase file)
+        {
+            ViewBag.message = "Loaded";
+            return View("Index");
+            
+        }
     }
 }

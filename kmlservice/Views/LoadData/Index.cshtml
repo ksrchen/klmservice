@@ -1,14 +1,28 @@
-﻿<form action="/loadData" method="post">
+﻿<div>
+    @Html.ValidationSummary(true)
+    @ViewBag.message
+</div>
+<form action="/loadData/LoadListing" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-2">Listing File </div>
         <div class="col-md-4">
-            <input id="listing" name="listing" type="file" />
+            <input id="file" name="file" type="file" />
         </div>
     </div>
     <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <input type="submit" value="Submit" />
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<form action="/loadData/LoadAttachment" method="post" enctype="multipart/form-data">
+    <div class="row">
         <div class="col-md-2">Attachment File </div>
         <div class="col-md-4">
-            <input id="attachment" name="attachment" type="file" />
+            <input id="file" name="file" type="file" />
         </div>
     </div>
     <div class="row">
