@@ -3,13 +3,14 @@
 <div class="panel panel-default">
 <div class="panel-heading">
     <div class="row">
-        <div class="col-md-2"><button>Export to CSV</button></div>
+        <div class="col-md-2"><button type="Button" id="Export">Export to CSV</button></div>
         <div class="col-md-6">Show Data for
-        <select>
-            <option>Today</option>
-            <option>Current Week</option>
-            <option>Current Month</option>
-            <option>Last 3 Months</option>
+        <select id="DateFilter">
+            <option value="0" selected>Today</option>
+            <option value="1">This Week</option>
+            <option value="2">This Month</option>
+            <option value="3">Last 3 Months</option>
+            <option value="4">Last 6 Months</option>
         </select>
         </div>
     </div>
@@ -34,3 +35,19 @@
         </tbody>
     </table>
 </div>
+    @section scripts {
+<script>
+    $(
+        function () {
+            $("#Export").click(function () {
+                var dateFilter = $("#DateFilter").val();
+                window.location = "/home?DateFilter=" + dateFilter + "&csv=true";
+            });
+
+            $("#DateFilter").change(function () {
+                var dateFilter = $("#DateFilter").val();
+                window.location = "/home?DateFilter=" + dateFilter;
+            });
+        });
+</script>
+}
