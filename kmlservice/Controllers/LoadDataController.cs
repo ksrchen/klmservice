@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace kmlservice.Controllers
 {
     [Authorize]
-    public class LoadDataController : Controller
+    public class LoadDataController : AsyncController
     {
         // GET: LoadData
         public ActionResult Index()
@@ -22,14 +23,14 @@ namespace kmlservice.Controllers
             return View("Index");
         }
         [HttpPost]
-        public ActionResult LoadAttachment(HttpPostedFileBase file)
+        public async Task<ActionResult> LoadAttachment(HttpPostedFileBase file)
         {
             ViewBag.message = "";
             try
             {
-
-                loadAttachment(file.InputStream);
-                ViewBag.message = "Loaded";
+                validateAttachmentFile(file.InputStream);
+                var result = await loadAttachmentAsync(file.InputStream);
+                ViewBag.message = result;
                 return View("Index");
             }
             catch (Exception exp)
@@ -40,11 +41,42 @@ namespace kmlservice.Controllers
 
         }
 
+        static void validateAttachmentFile(Stream stream)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+            StreamReader reader = new StreamReader(stream);
+            var line = reader.ReadLine();
+            var columnHeader = line.Split(new char[] { '\t' });
+            if (!(columnHeader.Contains("ClassKey") && columnHeader.Contains("MediaURL")))
+            {
+                throw new Exception("Invalid attachment file");
+            }
+        }
+        static async Task<string> loadAttachmentAsync(Stream stream)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    DateTime start = DateTime.Now;
+
+                    loadAttachment(stream);
+
+                    return "Completed in " + (DateTime.Now - start).ToString();
+                }
+                catch (Exception exp)
+                {
+                    return exp.Message;
+                }
+            });
+        }
 
         static void loadAttachment(Stream stream)
         {
             using (var db = new ResIncomeEntities())
             {
+                stream.Seek(0, SeekOrigin.Begin);
+
                 db.Database.ExecuteSqlCommand("delete attachments");
 
                 StreamReader reader = new StreamReader(stream);
