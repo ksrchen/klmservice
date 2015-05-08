@@ -391,18 +391,6 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="ListPrice" Type="float" />
           <Property Name="NumberUnits" Type="float" />
         </EntityType>
-        <Association Name="FK_Favoriate_ResIncome">
-          <End Role="ResIncome" Type="Self.ResIncome" Multiplicity="1" />
-          <End Role="Favoriate" Type="Self.Favoriate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ResIncome">
-              <PropertyRef Name="MLnumber" />
-            </Principal>
-            <Dependent Role="Favoriate">
-              <PropertyRef Name="MLNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Favoriate_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Favoriate" Type="Self.Favoriate" Multiplicity="*" />
@@ -477,10 +465,6 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
     [vwResIncomeSummary].[NumberUnits] AS [NumberUnits]
     FROM [dbo].[vwResIncomeSummary] AS [vwResIncomeSummary]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Favoriate_ResIncome" Association="Self.FK_Favoriate_ResIncome">
-            <End Role="ResIncome" EntitySet="ResIncome" />
-            <End Role="Favoriate" EntitySet="Favoriate" />
-          </AssociationSet>
           <AssociationSet Name="FK_Favoriate_User" Association="Self.FK_Favoriate_User">
             <End Role="User" EntitySet="User" />
             <End Role="Favoriate" EntitySet="Favoriate" />
@@ -493,20 +477,16 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
         <EntityContainer Name="ResIncomeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Users" EntityType="ResIncomeModel.User" />
           <EntitySet Name="ResIncomes" EntityType="ResIncomeModel.ResIncome" />
-          <EntitySet Name="Favoriates" EntityType="ResIncomeModel.Favoriate" />
-          <AssociationSet Name="FK_Favoriate_ResIncome" Association="ResIncomeModel.FK_Favoriate_ResIncome">
-            <End Role="ResIncome" EntitySet="ResIncomes" />
-            <End Role="Favoriate" EntitySet="Favoriates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favoriate_User" Association="ResIncomeModel.FK_Favoriate_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Favoriate" EntitySet="Favoriates" />
-          </AssociationSet>
           <EntitySet Name="attachments" EntityType="ResIncomeModel.attachment" />
           <EntitySet Name="vwResIncomeSummaries" EntityType="ResIncomeModel.vwResIncomeSummary" />
           <EntitySet Name="vwExpenses" EntityType="ResIncomeModel.vwExpense" />
           <EntitySet Name="vwFavoriates" EntityType="ResIncomeModel.vwFavoriate" />
           <EntitySet Name="Audits" EntityType="ResIncomeModel.Audit" />
+          <EntitySet Name="Favoriates" EntityType="ResIncomeModel.Favoriate" />
+          <AssociationSet Name="FK_Favoriate_User" Association="ResIncomeModel.FK_Favoriate_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Favoriate" EntitySet="Favoriates" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -782,43 +762,8 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Latitude" Type="Double" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Coordinate" Type="Geography" />
-          <NavigationProperty Name="Favoriates" Relationship="ResIncomeModel.FK_Favoriate_ResIncome" FromRole="ResIncome" ToRole="Favoriate" />
           <Property Name="ROI" Type="Double" />
         </EntityType>
-        <EntityType Name="Favoriate">
-          <Key>
-            <PropertyRef Name="FavoriateID" />
-          </Key>
-          <Property Name="FavoriateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="MLNumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ResIncome" Relationship="ResIncomeModel.FK_Favoriate_ResIncome" FromRole="Favoriate" ToRole="ResIncome" />
-          <NavigationProperty Name="User" Relationship="ResIncomeModel.FK_Favoriate_User" FromRole="Favoriate" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Favoriate_ResIncome">
-          <End Type="ResIncomeModel.ResIncome" Role="ResIncome" Multiplicity="1" />
-          <End Type="ResIncomeModel.Favoriate" Role="Favoriate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ResIncome">
-              <PropertyRef Name="MLnumber" />
-            </Principal>
-            <Dependent Role="Favoriate">
-              <PropertyRef Name="MLNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Favoriate_User">
-          <End Type="ResIncomeModel.User" Role="User" Multiplicity="1" />
-          <End Type="ResIncomeModel.Favoriate" Role="Favoriate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Favoriate">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="attachment">
           <Key>
             <PropertyRef Name="ID" />
@@ -915,6 +860,27 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Created" Type="DateTimeOffset" Nullable="false" Precision="7" />
         </EntityType>
+        <EntityType Name="Favoriate">
+          <Key>
+            <PropertyRef Name="FavoriateID" />
+          </Key>
+          <Property Name="FavoriateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MLNumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ResIncomeModel.FK_Favoriate_User" FromRole="Favoriate" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Favoriate_User">
+          <End Type="ResIncomeModel.User" Role="User" Multiplicity="1" />
+          <End Type="ResIncomeModel.Favoriate" Role="Favoriate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Favoriate">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1198,15 +1164,6 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Favoriates">
-            <EntityTypeMapping TypeName="ResIncomeModel.Favoriate">
-              <MappingFragment StoreEntitySet="Favoriate">
-                <ScalarProperty Name="MLNumber" ColumnName="MLNumber" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="FavoriateID" ColumnName="FavoriateID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="attachments">
             <EntityTypeMapping TypeName="ResIncomeModel.attachment">
               <MappingFragment StoreEntitySet="attachments">
@@ -1302,6 +1259,15 @@ warning 6002: The table/view 'ResIncome.dbo.vwResIncomeSummary' does not have a 
                 <ScalarProperty Name="Controller" ColumnName="Controller" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favoriates">
+            <EntityTypeMapping TypeName="ResIncomeModel.Favoriate">
+              <MappingFragment StoreEntitySet="Favoriate">
+                <ScalarProperty Name="MLNumber" ColumnName="MLNumber" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FavoriateID" ColumnName="FavoriateID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

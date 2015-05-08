@@ -14,11 +14,6 @@ namespace kmlservice
     
     public partial class ResIncome
     {
-        public ResIncome()
-        {
-            this.Favoriates = new HashSet<Favoriate>();
-        }
-    
         public string AccessibilityFeatures { get; set; }
         public Nullable<double> Acres { get; set; }
         public string AdNumber { get; set; }
@@ -278,7 +273,5 @@ namespace kmlservice
         public Nullable<double> Longitude { get; set; }
         public System.Data.Entity.Spatial.DbGeography Coordinate { get; set; }
         public Nullable<double> ROI { get; set; }
-    
-        public virtual ICollection<Favoriate> Favoriates { get; set; }
     }
 }

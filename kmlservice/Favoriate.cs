@@ -18,7 +18,6 @@ namespace kmlservice
         public string UserID { get; set; }
         public string MLNumber { get; set; }
     
-        public virtual ResIncome ResIncome { get; set; }
         public virtual User User { get; set; }
     }
 }
