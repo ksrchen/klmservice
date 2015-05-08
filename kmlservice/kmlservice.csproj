@@ -230,6 +230,7 @@
     <Compile Include="Controllers\HottestPropertiesController.cs" />
     <Compile Include="Controllers\LoadDataController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\PropertyProfileController.cs" />
     <Compile Include="Controllers\ResIncomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Favoriate.cs">
@@ -412,6 +413,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\LoadData\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\PropertyProfile\Index.cshtml" />
+    <Content Include="Views\PropertyProfile\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
